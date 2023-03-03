@@ -1,10 +1,21 @@
-import { IsBoolean, IsEnum, IsNumber, IsString } from 'class-validator';
+import {
+  IsBoolean,
+  IsEnum,
+  IsNumber,
+  IsOptional,
+  IsString,
+  IsUrl,
+} from 'class-validator';
 
 import { SellStatus } from '@prisma/client';
 
 export class CreatePropertyDto {
   @IsString()
   name: string;
+
+  @IsOptional()
+  @IsUrl()
+  photoUrl: string;
 
   @IsNumber()
   houseNumber: number;

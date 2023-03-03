@@ -4,6 +4,7 @@ import {
   IsNumber,
   IsOptional,
   IsString,
+  IsUrl,
 } from 'class-validator';
 
 import { SellStatus } from '@prisma/client';
@@ -12,6 +13,10 @@ export class EditPropertyDto {
   @IsOptional()
   @IsString()
   name: string;
+
+  @IsOptional()
+  @IsUrl()
+  photoUrl: string;
 
   @IsOptional()
   @IsNumber()

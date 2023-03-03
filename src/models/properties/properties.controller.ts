@@ -33,6 +33,7 @@ export class PropertiesController {
 
     const {
       name,
+      photoUrl,
       houseNumber,
       street,
       suburb,
@@ -50,6 +51,7 @@ export class PropertiesController {
 
     const property = await this.propertiesService.createProperty({
       name,
+      photoUrl,
       houseNumber,
       street,
       suburb,
@@ -81,6 +83,7 @@ export class PropertiesController {
   async editProperty(@Param('id') id: string, @Body() body: EditPropertyDto) {
     const {
       name,
+      photoUrl,
       houseNumber,
       street,
       suburb,
@@ -96,6 +99,7 @@ export class PropertiesController {
 
     const property = await this.propertiesService.editProperty(id, {
       name,
+      photoUrl,
       houseNumber,
       street,
       suburb,
