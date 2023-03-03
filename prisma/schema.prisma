@@ -31,7 +31,7 @@ model Property {
   price       Float
   postDate    DateTime
   rooms       Int
-  bathrooms   BigInt
+  bathrooms   Int
   parking     Boolean
   floors      Int
   sqm         Float
