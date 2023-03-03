@@ -1,4 +1,12 @@
-import { Body, Controller, Get, Post, Req, UseGuards } from '@nestjs/common';
+import {
+  Body,
+  Controller,
+  Get,
+  Param,
+  Post,
+  Req,
+  UseGuards,
+} from '@nestjs/common';
 import { JwtAuthGuard } from 'src/services/auth/jwt-auth.guard';
 import { CreatePropertyDto } from './dto/create-property.dto';
 import { PropertiesService } from './properties.service';
@@ -55,5 +63,13 @@ export class PropertiesController {
     });
 
     return { message: 'Property successfully created!', property };
+  }
+
+  @UseGuards(JwtAuthGuard)
+  @Get(':id')
+  async getProperty(@Param('id') id: string) {
+    const property = await this.propertiesService.getProperty(id);
+
+    return { message: 'Property successfully retrieved!', property };
   }
 }

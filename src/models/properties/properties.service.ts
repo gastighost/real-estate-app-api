@@ -13,4 +13,8 @@ export class PropertiesService {
   async createProperty(property: Prisma.PropertyCreateInput) {
     return this.prisma.property.create({ data: property });
   }
+
+  async getProperty(id: string) {
+    return this.prisma.property.findUnique({ where: { id } });
+  }
 }
