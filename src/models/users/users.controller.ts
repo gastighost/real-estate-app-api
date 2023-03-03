@@ -4,12 +4,14 @@ import {
   Delete,
   Get,
   HttpCode,
+  Patch,
   Post,
   Req,
   UseGuards,
 } from '@nestjs/common';
 import { JwtAuthGuard } from 'src/services/auth/jwt-auth.guard';
 import { CreateUserDto } from './dto/create-user.dto';
+import { EditUserDto } from './dto/edit-user.dto';
 import { LoginUserDto } from './dto/login-user.dto';
 import { UsersService } from './users.service';
 
@@ -47,6 +49,22 @@ export class UsersController {
     const { user } = req;
 
     return { user };
+  }
+
+  @UseGuards(JwtAuthGuard)
+  @Patch()
+  async editUser(@Req() req, @Body() body: EditUserDto) {
+    const { id } = req.user;
+    const { username, password, email, phone } = body;
+
+    const user = await this.usersService.editUser(id, {
+      username,
+      password,
+      email,
+      phone,
+    });
+
+    return { message: 'User successfully updated!', user };
   }
 
   @UseGuards(JwtAuthGuard)

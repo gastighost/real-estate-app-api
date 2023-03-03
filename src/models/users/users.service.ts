@@ -63,6 +63,10 @@ export class UsersService {
     return token;
   }
 
+  async editUser(id: string, user: Prisma.UserUpdateInput) {
+    return this.prisma.user.update({ where: { id }, data: user });
+  }
+
   async deleteUser(id: string) {
     return this.prisma.user.delete({ where: { id } });
   }
