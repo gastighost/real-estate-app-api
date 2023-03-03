@@ -2,6 +2,8 @@ import { HttpException, HttpStatus, Injectable } from '@nestjs/common';
 import { Prisma } from '@prisma/client';
 import { PrismaService } from 'src/services/prisma/prisma.service';
 
+type PropertyCreateInput = Omit<Prisma.PropertyCreateInput, 'postDate'>;
+
 @Injectable()
 export class PropertiesService {
   constructor(private readonly prisma: PrismaService) {}
@@ -10,8 +12,10 @@ export class PropertiesService {
     return this.prisma.property.findMany();
   }
 
-  async createProperty(property: Prisma.PropertyCreateInput) {
-    return this.prisma.property.create({ data: property });
+  async createProperty(property: PropertyCreateInput) {
+    const postDate = new Date().toISOString();
+
+    return this.prisma.property.create({ data: { ...property, postDate } });
   }
 
   async getProperty(id: string) {

@@ -47,8 +47,6 @@ export class PropertiesController {
       sqm,
     } = body;
 
-    const postDate = new Date().toISOString();
-
     const property = await this.propertiesService.createProperty({
       name,
       photoUrl,
@@ -58,7 +56,6 @@ export class PropertiesController {
       zipcode,
       sellStatus,
       price,
-      postDate,
       rooms,
       bathrooms,
       parking,
