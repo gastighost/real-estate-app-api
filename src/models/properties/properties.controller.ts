@@ -3,12 +3,14 @@ import {
   Controller,
   Get,
   Param,
+  Patch,
   Post,
   Req,
   UseGuards,
 } from '@nestjs/common';
 import { JwtAuthGuard } from 'src/services/auth/jwt-auth.guard';
 import { CreatePropertyDto } from './dto/create-property.dto';
+import { EditPropertyDto } from './dto/edit-property.dto';
 import { PropertiesService } from './properties.service';
 
 @Controller('properties')
@@ -71,5 +73,41 @@ export class PropertiesController {
     const property = await this.propertiesService.getProperty(id);
 
     return { message: 'Property successfully retrieved!', property };
+  }
+
+  @UseGuards(JwtAuthGuard)
+  @Patch(':id')
+  async editProperty(@Param('id') id: string, @Body() body: EditPropertyDto) {
+    const {
+      name,
+      houseNumber,
+      street,
+      suburb,
+      zipcode,
+      sellStatus,
+      price,
+      rooms,
+      bathrooms,
+      parking,
+      floors,
+      sqm,
+    } = body;
+
+    const property = await this.propertiesService.editProperty(id, {
+      name,
+      houseNumber,
+      street,
+      suburb,
+      zipcode,
+      sellStatus,
+      price,
+      rooms,
+      bathrooms,
+      parking,
+      floors,
+      sqm,
+    });
+
+    return { message: 'Property successfully updated!', property };
   }
 }

@@ -17,4 +17,8 @@ export class PropertiesService {
   async getProperty(id: string) {
     return this.prisma.property.findUnique({ where: { id } });
   }
+
+  async editProperty(id: string, property: Prisma.PropertyUpdateInput) {
+    return this.prisma.property.update({ where: { id }, data: property });
+  }
 }
