@@ -1,6 +1,7 @@
 import {
   Body,
   Controller,
+  Delete,
   Get,
   Param,
   Patch,
@@ -109,5 +110,13 @@ export class PropertiesController {
     });
 
     return { message: 'Property successfully updated!', property };
+  }
+
+  @UseGuards(JwtAuthGuard)
+  @Delete(':id')
+  async deleteProperty(@Param('id') id: string) {
+    const property = await this.propertiesService.deleteProperty(id);
+
+    return { message: 'Property successfully deleted!', property };
   }
 }

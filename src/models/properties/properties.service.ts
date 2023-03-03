@@ -21,4 +21,8 @@ export class PropertiesService {
   async editProperty(id: string, property: Prisma.PropertyUpdateInput) {
     return this.prisma.property.update({ where: { id }, data: property });
   }
+
+  async deleteProperty(id: string) {
+    return this.prisma.property.delete({ where: { id } });
+  }
 }
