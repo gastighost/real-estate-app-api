@@ -1,13 +1,14 @@
 import {
   IsBoolean,
   IsEnum,
+  IsISO4217CurrencyCode,
   IsNumber,
   IsOptional,
   IsString,
   IsUrl,
 } from 'class-validator';
 
-import { SellStatus } from '@prisma/client';
+import { SellStatus, Type } from '@prisma/client';
 
 export class CreatePropertyDto {
   @IsString()
@@ -35,6 +36,9 @@ export class CreatePropertyDto {
   @IsNumber()
   price: number;
 
+  @IsISO4217CurrencyCode()
+  currency: string;
+
   @IsNumber()
   rooms: number;
 
@@ -49,4 +53,7 @@ export class CreatePropertyDto {
 
   @IsNumber()
   sqm: number;
+
+  @IsEnum(Type)
+  type: Type;
 }

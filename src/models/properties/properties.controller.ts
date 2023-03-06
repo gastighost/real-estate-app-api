@@ -40,11 +40,13 @@ export class PropertiesController {
       zipcode,
       sellStatus,
       price,
+      currency,
       rooms,
       bathrooms,
       parking,
       floors,
       sqm,
+      type,
     } = body;
 
     const property = await this.propertiesService.createProperty({
@@ -56,11 +58,13 @@ export class PropertiesController {
       zipcode,
       sellStatus,
       price,
+      currency,
       rooms,
       bathrooms,
       parking,
       floors,
       sqm,
+      type,
       seller: { connect: { id } },
     });
 
@@ -87,11 +91,13 @@ export class PropertiesController {
       zipcode,
       sellStatus,
       price,
+      currency,
       rooms,
       bathrooms,
       parking,
       floors,
       sqm,
+      type,
     } = body;
 
     const property = await this.propertiesService.editProperty(id, {
@@ -103,11 +109,13 @@ export class PropertiesController {
       zipcode,
       sellStatus,
       price,
+      currency,
       rooms,
       bathrooms,
       parking,
       floors,
       sqm,
+      type,
     });
 
     return { message: 'Property successfully updated!', property };

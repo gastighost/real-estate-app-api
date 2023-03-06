@@ -7,7 +7,7 @@ import {
   IsUrl,
 } from 'class-validator';
 
-import { SellStatus } from '@prisma/client';
+import { SellStatus, Type } from '@prisma/client';
 
 export class EditPropertyDto {
   @IsOptional()
@@ -43,6 +43,10 @@ export class EditPropertyDto {
   price: number;
 
   @IsOptional()
+  @IsString()
+  currency: string;
+
+  @IsOptional()
   @IsNumber()
   rooms: number;
 
@@ -61,4 +65,8 @@ export class EditPropertyDto {
   @IsOptional()
   @IsNumber()
   sqm: number;
+
+  @IsOptional()
+  @IsEnum(Type)
+  type: Type;
 }

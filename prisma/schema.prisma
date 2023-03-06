@@ -28,14 +28,18 @@ model Property {
   street      String
   suburb      String
   zipcode     Int
+  latitude    Float?
+  longitude   Float?
   sellStatus  SellStatus
   price       Float
+  currency    String
   postDate    DateTime
   rooms       Int
   bathrooms   Int
   parking     Boolean
   floors      Int
   sqm         Float
+  type        Type
   seller      User       @relation("seller", fields: [sellerId], references: [id])
   sellerId    String     @db.ObjectId
   buyer       User?      @relation("buyer", fields: [buyerId], references: [id])
@@ -45,4 +49,10 @@ model Property {
 enum SellStatus {
   SALE
   RENT
+}
+
+enum Type {
+  APARTMENT
+  HOUSE
+  COMMERCIAL
 }
