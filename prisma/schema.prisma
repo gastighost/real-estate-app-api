@@ -32,14 +32,14 @@ model Property {
   longitude   Float?
   sellStatus  SellStatus
   price       Float
-  currency    String
+  currency    String     @default("PHP")
   postDate    DateTime
   rooms       Int
   bathrooms   Int
   parking     Boolean
   floors      Int
   sqm         Float
-  type        Type
+  type        Type       @default(HOUSE)
   seller      User       @relation("seller", fields: [sellerId], references: [id])
   sellerId    String     @db.ObjectId
   buyer       User?      @relation("buyer", fields: [buyerId], references: [id])
