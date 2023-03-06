@@ -14,7 +14,12 @@ async function bootstrap() {
   const { httpAdapter } = app.get(HttpAdapterHost);
   app.useGlobalFilters(new PrismaClientExceptionFilter(httpAdapter));
 
-  app.enableCors();
+  app.enableCors({
+    origin: [
+      'http://localhost:3000',
+      'https://real-estate-app-front.herokuapp.com',
+    ],
+  });
 
   await app.listen(8080);
 }
