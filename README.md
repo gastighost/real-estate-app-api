@@ -24,7 +24,7 @@
 
 ## Description
 
-[Nest](https://github.com/nestjs/nest) framework TypeScript starter repository.
+A NestJS application for my property app. Built with MongoDB and Prisma as an ORM.
 
 ## Installation
 
