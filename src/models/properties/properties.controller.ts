@@ -9,7 +9,7 @@ import {
   Req,
   UseGuards,
 } from '@nestjs/common';
-import { JwtAuthGuard } from 'src/services/auth/jwt-auth.guard';
+import { JwtAuthGuard } from '../../services/auth/jwt-auth.guard';
 import { CreatePropertyDto } from './dto/create-property.dto';
 import { EditPropertyDto } from './dto/edit-property.dto';
 import { PropertiesService } from './properties.service';

@@ -1,11 +1,11 @@
 import * as request from 'supertest';
 import { Test } from '@nestjs/testing';
-
-import { UsersModule } from '../src/models/users/users.module';
 import { INestApplication } from '@nestjs/common';
-import { PrismaService } from '../src/services/prisma/prisma.service';
 import { JwtModule } from '@nestjs/jwt';
 import { ConfigModule, ConfigService } from '@nestjs/config';
+
+import { PrismaService } from '../src/services/prisma/prisma.service';
+import { UsersModule } from '../src/models/users/users.module';
 
 describe('Users', () => {
   let app: INestApplication;

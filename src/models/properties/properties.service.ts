@@ -1,6 +1,6 @@
 import { HttpException, HttpStatus, Injectable } from '@nestjs/common';
 import { Prisma } from '@prisma/client';
-import { PrismaService } from 'src/services/prisma/prisma.service';
+import { PrismaService } from '../../services/prisma/prisma.service';
 
 type PropertyCreateInput = Omit<Prisma.PropertyCreateInput, 'postDate'>;
 
