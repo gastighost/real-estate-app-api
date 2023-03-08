@@ -154,6 +154,24 @@ describe('Users', () => {
     expect(response2.body.user).toMatchObject(mockedUserInput);
   });
 
+  it(`/DELETE /users/ (UNAUTHORIZED)`, async () => {
+    const mockedUserInput = {
+      username: 'hemady',
+      password: 'Password123456',
+    };
+
+    const response1 = await request(app.getHttpServer())
+      .post('/users/login/')
+      .send(mockedUserInput);
+
+    const response2 = await request(app.getHttpServer())
+      .delete('/users/')
+      .set('Authorization', `Bearer ${response1.body.token}`);
+
+    expect(response2.status).toBe(401);
+    expect(response2.body.message).toBe('Unauthorized');
+  });
+
   afterAll(async () => {
     await prismaService.user.deleteMany({
       where: {
