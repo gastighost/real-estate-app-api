@@ -8,7 +8,7 @@ jobs:
 
     strategy:
       matrix:
-        node-version: [16.x]
+        node-version: [18.14.2]
 
     env:
       DATABASE_URL: ${{ secrets.DATABASE_URL }}
