@@ -5,6 +5,7 @@ import { PrismaModule } from './services/prisma/prisma.module';
 import { UsersModule } from './models/users/users.module';
 import { AuthModule } from './services/auth/auth.module';
 import { PropertiesModule } from './models/properties/properties.module';
+import { WebsocketsModule } from './services/websockets/websockets.module';
 
 @Module({
   imports: [
@@ -13,6 +14,7 @@ import { PropertiesModule } from './models/properties/properties.module';
     UsersModule,
     AuthModule,
     PropertiesModule,
+    WebsocketsModule,
   ],
   controllers: [],
   providers: [],
