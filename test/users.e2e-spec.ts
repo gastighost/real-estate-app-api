@@ -99,6 +99,34 @@ describe('Users', () => {
     expect(response.body.message).toBe('User credentials invalid');
   });
 
+  it(`/PATCH /users/login/ (UNAUTHORIZED)`, async () => {
+    const mockedUserInput = {
+      username: 'hemady',
+      password: 'Password123456',
+    };
+
+    const response1 = await request(app.getHttpServer())
+      .post('/users/login/')
+      .send(mockedUserInput);
+
+    const newMockedUserInput = {
+      username: 'hemadie',
+      email: 'hemadie@gmail.com',
+      phone: '+61770102222',
+    };
+
+    const response2 = await request(app.getHttpServer())
+      .patch('/users/')
+      .set('Authorization', `Bearer ${response1.body.token}`)
+      .send(newMockedUserInput);
+
+    console.log(response2.body);
+
+    expect(response2.status).toBe(200);
+    expect(response2.body.message).toBe('User successfully updated!');
+    expect(response2.body.user).toMatchObject(newMockedUserInput);
+  });
+
   afterAll(async () => {
     await prismaService.user.deleteMany({
       where: { OR: [{ username: 'hemady' }, { email: 'hemady@gmail.com' }] },
