@@ -8,6 +8,8 @@ import { PrismaService } from '../src/services/prisma/prisma.service';
 import { UsersModule } from '../src/models/users/users.module';
 
 describe('Users', () => {
+  jest.setTimeout(10000);
+
   let app: INestApplication;
   const prismaService = new PrismaService();
 

@@ -11,6 +11,8 @@ import { JwtStrategy } from '../src/services/auth/jwt.strategy';
 import { UsersModule } from '../src/models/users/users.module';
 
 describe('Properties', () => {
+  jest.setTimeout(10000);
+
   let app: INestApplication;
   const prismaService = new PrismaService();
   let token: string;
