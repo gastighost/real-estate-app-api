@@ -30,7 +30,14 @@ describe('Users', () => {
     await app.init();
 
     await prismaService.user.deleteMany({
-      where: { OR: [{ username: 'hemady' }, { email: 'hemady@gmail.com' }] },
+      where: {
+        OR: [
+          { username: 'hemady' },
+          { username: 'hemadie' },
+          { email: 'hemady@gmail.com' },
+          { email: 'hemadie@gmail.com' },
+        ],
+      },
     });
   });
 
@@ -99,7 +106,7 @@ describe('Users', () => {
     expect(response.body.message).toBe('User credentials invalid');
   });
 
-  it(`/PATCH /users/login/ (UNAUTHORIZED)`, async () => {
+  it(`/PATCH /users/`, async () => {
     const mockedUserInput = {
       username: 'hemady',
       password: 'Password123456',
@@ -120,16 +127,43 @@ describe('Users', () => {
       .set('Authorization', `Bearer ${response1.body.token}`)
       .send(newMockedUserInput);
 
-    console.log(response2.body);
-
     expect(response2.status).toBe(200);
     expect(response2.body.message).toBe('User successfully updated!');
     expect(response2.body.user).toMatchObject(newMockedUserInput);
   });
 
+  it(`/DELETE /users/`, async () => {
+    const mockedUserInput = {
+      username: 'hemadie',
+      password: 'Password123456',
+    };
+
+    const response1 = await request(app.getHttpServer())
+      .post('/users/login/')
+      .send(mockedUserInput);
+
+    const response2 = await request(app.getHttpServer())
+      .delete('/users/')
+      .set('Authorization', `Bearer ${response1.body.token}`);
+
+    delete mockedUserInput.password;
+    delete response2.body.user.password;
+
+    expect(response2.status).toBe(200);
+    expect(response2.body.message).toBe('User successfully deleted!');
+    expect(response2.body.user).toMatchObject(mockedUserInput);
+  });
+
   afterAll(async () => {
     await prismaService.user.deleteMany({
-      where: { OR: [{ username: 'hemady' }, { email: 'hemady@gmail.com' }] },
+      where: {
+        OR: [
+          { username: 'hemady' },
+          { username: 'hemadie' },
+          { email: 'hemady@gmail.com' },
+          { email: 'hemadie@gmail.com' },
+        ],
+      },
     });
 
     await app.close();
