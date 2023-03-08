@@ -18,7 +18,7 @@ describe('Users', () => {
 
   beforeAll(async () => {
     await prismaService.user.deleteMany({
-      where: { username: 'hemady', email: 'hemady@gmail.com' },
+      where: { OR: [{ username: 'hemady' }, { email: 'hemady@gmail.com' }] },
     });
 
     const moduleRef = await Test.createTestingModule({
@@ -50,14 +50,16 @@ describe('Users', () => {
       phone: '+61770101111',
     };
 
-    return request(app.getHttpServer())
+    const response = await request(app.getHttpServer())
       .post('/users/signup/')
-      .send(mockedUserInput)
-      .then((response) => {
-        delete mockedUserInput.password;
-        expect(response.status).toBe(201);
-        expect(response.body.user).toMatchObject(mockedUserInput);
-      });
+      .send(mockedUserInput);
+
+    expect(response.body.user.password).not.toBe(mockedUserInput.password);
+
+    delete mockedUserInput.password;
+
+    expect(response.status).toBe(201);
+    expect(response.body.user).toMatchObject(mockedUserInput);
   });
 
   afterAll(async () => {
