@@ -157,6 +157,31 @@ describe('Properties', () => {
     expect(response.body.property).toMatchObject(updatedProperty);
   });
 
+  it(`/DELETE /property/id}`, async () => {
+    const response = await request(app.getHttpServer())
+      .delete(`/properties/${id}`)
+      .set('Authorization', `Bearer ${token}`);
+
+    expect(response.status).toBe(200);
+    expect(response.body.message).toBe('Property successfully deleted!');
+    expect(response.body.property).toMatchObject({
+      name: 'Holy mansion',
+      houseNumber: 20,
+      street: 'Light Way',
+      suburb: "Heaven's Village",
+      zipcode: 3040,
+      sellStatus: 'SALE',
+      price: 500000000,
+      currency: 'USD',
+      rooms: 20,
+      bathrooms: 20,
+      parking: true,
+      floors: 2,
+      sqm: 3000,
+      type: 'HOUSE',
+    });
+  });
+
   afterAll(async () => {
     await prismaService.user.deleteMany({
       where: {
