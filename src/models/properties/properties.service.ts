@@ -8,8 +8,8 @@ type PropertyCreateInput = Omit<Prisma.PropertyCreateInput, 'postDate'>;
 export class PropertiesService {
   constructor(private readonly prisma: PrismaService) {}
 
-  async getAllProperties() {
-    return this.prisma.property.findMany();
+  async getAllProperties(prismaQuery: Prisma.PropertyFindManyArgs) {
+    return this.prisma.property.findMany(prismaQuery);
   }
 
   async createProperty(property: PropertyCreateInput) {

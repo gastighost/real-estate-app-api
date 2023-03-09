@@ -6,12 +6,14 @@ import {
   Param,
   Patch,
   Post,
+  Query,
   Req,
   UseGuards,
 } from '@nestjs/common';
 import { JwtAuthGuard } from '../../services/auth/jwt-auth.guard';
 import { CreatePropertyDto } from './dto/create-property.dto';
 import { EditPropertyDto } from './dto/edit-property.dto';
+import { GetPropertiesQueryDto } from './dto/get-properties-query.dto';
 import { PropertiesService } from './properties.service';
 
 @Controller('properties')
@@ -20,8 +22,18 @@ export class PropertiesController {
 
   @UseGuards(JwtAuthGuard)
   @Get()
-  async getAllProperties() {
-    const properties = await this.propertiesService.getAllProperties();
+  async getAllProperties(@Query() query: GetPropertiesQueryDto) {
+    const { type, price, rooms, bathrooms, sqm } = query;
+
+    const properties = await this.propertiesService.getAllProperties({
+      where: {
+        type,
+        price: { gte: price },
+        rooms,
+        bathrooms,
+        sqm: { gte: sqm },
+      },
+    });
 
     return { message: 'Properties successfully retrieved!', properties };
   }
