@@ -40,7 +40,7 @@ model Property {
   floors      Int
   sqm         Float
   type        Type       @default(HOUSE)
-  seller      User       @relation("seller", fields: [sellerId], references: [id])
+  seller      User       @relation("seller", fields: [sellerId], references: [id], onDelete: Cascade)
   sellerId    String     @db.ObjectId
   buyer       User?      @relation("buyer", fields: [buyerId], references: [id])
   buyerId     String?    @db.ObjectId

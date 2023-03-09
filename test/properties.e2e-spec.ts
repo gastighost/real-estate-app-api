@@ -16,6 +16,7 @@ describe('Properties', () => {
   let app: INestApplication;
   const prismaService = new PrismaService();
   let token: string;
+  let id: string;
 
   beforeAll(async () => {
     const moduleRef = await Test.createTestingModule({
@@ -71,6 +72,61 @@ describe('Properties', () => {
       .set('Authorization', `Bearer ${token}`);
 
     expect(response.status).toBe(200);
+    expect(response.body.properties.length).toBeGreaterThan(0);
+  });
+
+  it(`/POST /property/`, async () => {
+    const newProperty = {
+      name: 'Haunted mansion',
+      houseNumber: 555,
+      street: 'Dark Way',
+      suburb: "Hell's Village",
+      zipcode: 5060,
+      sellStatus: 'SALE',
+      price: 20000000,
+      currency: 'USD',
+      rooms: 10,
+      bathrooms: 10,
+      parking: true,
+      floors: 3,
+      sqm: 2000,
+      type: 'HOUSE',
+    };
+
+    const response = await request(app.getHttpServer())
+      .post('/properties/')
+      .set('Authorization', `Bearer ${token}`)
+      .send(newProperty);
+
+    id = response.body.property.id;
+
+    expect(response.status).toBe(201);
+    expect(response.body.message).toBe('Property successfully created!');
+    expect(response.body.property).toMatchObject(newProperty);
+  });
+
+  it(`/GET /property/{id}`, async () => {
+    const response = await request(app.getHttpServer())
+      .get(`/properties/${id}`)
+      .set('Authorization', `Bearer ${token}`);
+
+    expect(response.status).toBe(200);
+    expect(response.body.property).toMatchObject({
+      name: 'Haunted mansion',
+      houseNumber: 555,
+      street: 'Dark Way',
+      suburb: "Hell's Village",
+      zipcode: 5060,
+      sellStatus: 'SALE',
+      price: 20000000,
+      currency: 'USD',
+      rooms: 10,
+      bathrooms: 10,
+      parking: true,
+      floors: 3,
+      sqm: 2000,
+      type: 'HOUSE',
+    });
   });
 
   afterAll(async () => {
