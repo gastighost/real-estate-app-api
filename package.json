@@ -8,6 +8,7 @@
   "scripts": {
     "build": "nest build",
     "format": "prettier --write \"src/**/*.ts\" \"test/**/*.ts\"",
+    "seed": "ts-node ./prisma/seed.ts",
     "start": "nest start",
     "start:dev": "yarn prisma generate && nest start --watch",
     "start:debug": "nest start --debug --watch",
@@ -40,6 +41,7 @@
     "socket.io": "^4.6.1"
   },
   "devDependencies": {
+    "@faker-js/faker": "^7.6.0",
     "@nestjs/cli": "^9.0.0",
     "@nestjs/schematics": "^9.0.0",
     "@nestjs/testing": "^9.3.9",
