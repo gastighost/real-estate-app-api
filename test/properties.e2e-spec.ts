@@ -129,6 +129,34 @@ describe('Properties', () => {
     });
   });
 
+  it(`/PATCH /property/{id}`, async () => {
+    const updatedProperty = {
+      name: 'Holy mansion',
+      houseNumber: 20,
+      street: 'Light Way',
+      suburb: "Heaven's Village",
+      zipcode: 3040,
+      sellStatus: 'SALE',
+      price: 500000000,
+      currency: 'USD',
+      rooms: 20,
+      bathrooms: 20,
+      parking: true,
+      floors: 2,
+      sqm: 3000,
+      type: 'HOUSE',
+    };
+
+    const response = await request(app.getHttpServer())
+      .patch(`/properties/${id}`)
+      .set('Authorization', `Bearer ${token}`)
+      .send(updatedProperty);
+
+    expect(response.status).toBe(200);
+    expect(response.body.message).toBe('Property successfully updated!');
+    expect(response.body.property).toMatchObject(updatedProperty);
+  });
+
   afterAll(async () => {
     await prismaService.user.deleteMany({
       where: {
