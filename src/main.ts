@@ -10,14 +10,6 @@ async function bootstrap() {
 
   app.use(helmet());
 
-  app.enableCors({
-    origin: [
-      'https://real-estate-app-front.herokuapp.com',
-      'http://localhost:3000',
-    ],
-    credentials: true,
-  });
-
   app.useGlobalPipes(
     new ValidationPipe({
       transform: true,
@@ -26,6 +18,14 @@ async function bootstrap() {
 
   const { httpAdapter } = app.get(HttpAdapterHost);
   app.useGlobalFilters(new PrismaClientExceptionFilter(httpAdapter));
+
+  app.enableCors({
+    origin: [
+      'https://real-estate-app-front.herokuapp.com',
+      'http://localhost:3000',
+    ],
+    credentials: true,
+  });
 
   await app.listen(process.env.PORT || 8080);
 }
