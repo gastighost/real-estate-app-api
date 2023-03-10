@@ -12,6 +12,7 @@ async function bootstrap() {
         'http://localhost:3000',
         'https://real-estate-app-front.herokuapp.com',
       ],
+      credentials: true,
     },
   });
 
