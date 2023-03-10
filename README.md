@@ -24,7 +24,7 @@
 
 ## Description
 
-A NestJS application for my property app. Built with MongoDB and Prisma as an ORM. End to end testing is done with JestJS and supertest.
+A NestJS application for my property app. Built with MongoDB and Prisma as an ORM. End to end testing is done with JestJS and supertest. CI is executed via github actions.
 
 ## Installation
 
