@@ -10,7 +10,13 @@ async function bootstrap() {
 
   app.use(helmet());
 
-  app.enableCors();
+  app.enableCors({
+    origin: [
+      'https://real-estate-app-front.herokuapp.com',
+      'http://localhost:3000',
+    ],
+    credentials: true,
+  });
 
   app.useGlobalPipes(
     new ValidationPipe({
