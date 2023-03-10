@@ -26,13 +26,11 @@ export class PropertiesController {
     const { type, price, rooms, bathrooms, sqm } = query;
 
     const properties = await this.propertiesService.getAllProperties({
-      where: {
-        type,
-        price: { gte: price },
-        rooms,
-        bathrooms,
-        sqm: { gte: sqm },
-      },
+      type,
+      price,
+      rooms,
+      bathrooms,
+      sqm,
     });
 
     return { message: 'Properties successfully retrieved!', properties };

@@ -8,8 +8,18 @@ type PropertyCreateInput = Omit<Prisma.PropertyCreateInput, 'postDate'>;
 export class PropertiesService {
   constructor(private readonly prisma: PrismaService) {}
 
-  async getAllProperties(prismaQuery: Prisma.PropertyFindManyArgs) {
-    return this.prisma.property.findMany(prismaQuery);
+  async getAllProperties(prismaQuery: Prisma.PropertyWhereInput) {
+    const { type, price, rooms, bathrooms, sqm } = prismaQuery;
+
+    return this.prisma.property.findMany({
+      where: {
+        type,
+        price: { gte: Number(price) || undefined },
+        rooms,
+        bathrooms,
+        sqm: { gte: Number(sqm) || undefined },
+      },
+    });
   }
 
   async createProperty(property: PropertyCreateInput) {
