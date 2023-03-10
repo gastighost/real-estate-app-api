@@ -7,12 +7,7 @@ import { PrismaClientExceptionFilter } from './common/filters/prisma/prisma-clie
 
 async function bootstrap() {
   const app = await NestFactory.create(AppModule, {
-    cors: {
-      origin: [
-        'http://localhost:3000',
-        'https://real-estate-app-front.herokuapp.com',
-      ],
-    },
+    cors: true,
   });
 
   app.use(helmet());
