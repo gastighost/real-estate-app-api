@@ -6,16 +6,16 @@ import { AppModule } from './app.module';
 import { PrismaClientExceptionFilter } from './common/filters/prisma/prisma-client-exception.filter';
 
 async function bootstrap() {
-  const app = await NestFactory.create(AppModule);
+  const app = await NestFactory.create(AppModule, {
+    cors: {
+      origin: [
+        'http://localhost:3000',
+        'https://real-estate-app-front.herokuapp.com',
+      ],
+    },
+  });
 
   app.use(helmet());
-
-  app.enableCors({
-    origin: [
-      'http://localhost:3000',
-      'https://real-estate-app-front.herokuapp.com',
-    ],
-  });
 
   app.useGlobalPipes(
     new ValidationPipe({
