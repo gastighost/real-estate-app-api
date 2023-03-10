@@ -13,7 +13,7 @@ export class PropertiesService {
   }
 
   async createProperty(property: PropertyCreateInput) {
-    const postDate = new Date().toISOString();
+    const postDate = new Date();
 
     return this.prisma.property.create({ data: { ...property, postDate } });
   }
